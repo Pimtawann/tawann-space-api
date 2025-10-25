@@ -129,7 +129,7 @@ app.get("/posts/:postId", async (req, res) => {
         const results = await connectionPool.query(`
             SELECT posts.id, posts.image, categories.name AS category, posts.title, posts.description, posts.date, posts.content, statuses.status, posts.likes_count
             FROM posts
-            INNER JOIN categories ON posts.category_id = catagories.id
+            INNER JOIN categories ON posts.category_id = categories.id
             INNER JOIN statuses ON posts.status_id = statuses.id
             WHERE posts.id = $1`
             , [postIdFromClient]);
@@ -167,7 +167,7 @@ app.put("/posts/:postId", async (req, res) => {
             [
                 postIdFromClient,
                 updatedPost.title,
-                updatedPost,image,
+                updatedPost.image,
                 updatedPost.category_id,
                 updatedPost.description,
                 updatedPost.content,
@@ -213,8 +213,6 @@ app.delete("/posts/:postId", async (req, res) => {
         });
     }
 });
-
-app
 
 app.listen(port, () => {
   console.log(`Server is running at ${port}`);
