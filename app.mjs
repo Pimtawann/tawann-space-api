@@ -1,4 +1,6 @@
-import 'dotenv/config';
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import cors from "cors";
 import connectionPool from './utils/db.mjs';
@@ -115,7 +117,8 @@ app.get("/posts", async (req, res) => {
         
         return res.status(200).json(results);
 
-    } catch {
+    } catch (err) {
+        console.error("DB ERROR:", err);
         return res.status(500).json({
             message: "Server could not read post because database connection",
         })
