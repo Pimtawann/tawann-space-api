@@ -1,4 +1,7 @@
-import pg from "pg";
+import dotenv from "dotenv";
+dotenv.config();
+
+import * as pg from "pg";
 const { Pool } = pg;
 
 const connectionPool = new Pool({
